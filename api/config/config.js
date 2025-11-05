@@ -2,6 +2,7 @@ require('dotenv').config();
 
 const dialectOptions = {
   options: {
+    instanceName: process.env.DB_INSTANCE || '',
     encrypt: process.env.DB_ENCRYPT === 'true',
     trustServerCertificate: process.env.DB_TRUST_CERT === 'true'
   }
@@ -18,7 +19,7 @@ module.exports = {
     dialectModule: require('tedious'),
     dialectOptions,
     pool: { max: 10, min: 0, idle: 30000 },
-    logging: false
+    logging: console.log
   },
   production: {
     username: process.env.DB_USER,
@@ -30,6 +31,6 @@ module.exports = {
     dialectModule: require('tedious'),
     dialectOptions,
     pool: { max: 20, min: 2, idle: 30000 },
-    logging: false
+    logging: console.log
   }
 };

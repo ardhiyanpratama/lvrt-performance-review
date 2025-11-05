@@ -40,17 +40,4 @@ Object.keys(db).forEach(modelName => {
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
-db.Employee = require('./employee')(sequelize, Sequelize.DataTypes);
-db.Department = require('./department')(sequelize, Sequelize.DataTypes);
-db.Level = require('./level')(sequelize, Sequelize.DataTypes);
-db.Title = require('./title')(sequelize, Sequelize.DataTypes);
-
-//Associations
-db.Employee.belongsTo(db.Department, { foreignKey: 'departmentId' });
-db.Department.hasMany(db.Employee, { foreignKey: 'departmentId' });
-db.Employee.belongsTo(db.Level, { foreignKey: 'levelId' });
-db.Level.hasMany(db.Employee, { foreignKey: 'levelId' });
-db.Employee.belongsTo(db.Title, { foreignKey: 'titleId' });
-db.Title.hasMany(db.Employee, { foreignKey: 'titleId' });
-
 module.exports = db;

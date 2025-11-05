@@ -9,6 +9,33 @@ module.exports = {
         type: Sequelize.UUID,
         defaultValue: Sequelize.UUIDV4,
       },
+      titleId: {
+        type: Sequelize.UUID,
+        references: {
+          model: 'Titles',
+          key: 'id'
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'SET NULL'
+      },
+      levelId: {
+        type: Sequelize.UUID,
+        references: {
+          model: 'Levels',
+          key: 'id'
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'SET NULL'
+      },
+      departmentId: {
+        type: Sequelize.UUID,
+        references: {
+          model: 'Departments',
+          key: 'id'
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'SET NULL'
+      },
       nik: {
         type: Sequelize.STRING,
         allowNull: false,
@@ -39,6 +66,7 @@ module.exports = {
         type: Sequelize.DATE
       }
     });
+
   },
   async down(queryInterface, Sequelize) {
     await queryInterface.dropTable('Employees');

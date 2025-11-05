@@ -2,17 +2,35 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Levels', {
+    await queryInterface.createTable('KPIs', {
       id: {
         allowNull: false,
         primaryKey: true,
         type: Sequelize.UUID,
         defaultValue: Sequelize.UUIDV4
       },
-      gradeId: {
+      titleId: {
         type: Sequelize.UUID,
         references: {
-          model: 'Grades',
+          model: 'Titles',
+          key: 'id'
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'SET NULL'
+      },
+      softcompetenciesId: {
+        type: Sequelize.UUID,
+        references: {
+          model: 'Softcompetencies',
+          key: 'id'
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'SET NULL'
+      },
+      hardcompetenciesId: {
+        type: Sequelize.UUID,
+        references: {
+          model: 'Hardcompetencies',
           key: 'id'
         },
         onUpdate: 'CASCADE',
@@ -39,6 +57,6 @@ module.exports = {
 
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Levels');
+    await queryInterface.dropTable('KPIs');
   }
 };

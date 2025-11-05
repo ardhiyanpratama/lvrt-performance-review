@@ -9,7 +9,8 @@
     "init-sequelize": "npx sequelize init",
     "create-db": "node scripts/create-db.js",
     "migrate": "npx sequelize db:migrate",
-    "migrate-undo": "npx sequelize db:migrate:undo:all"
+    "migrate-undo": "npx sequelize db:migrate:undo:all",
+    "generate:migration": "node scripts/generate-migration.js"
   },
   "keywords": [],
   "author": "",

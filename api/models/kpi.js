@@ -3,7 +3,7 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class Department extends Model {
+  class KPI extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -11,24 +11,18 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Department.hasMany(models.Employee, { foreignKey: 'departmentId' });
+      KPI.hasMany(models.Title, { foreignKey: 'titleId' });
+      KPI.hasMany(models.Softcompetencies, { foreignKey: 'softcompetenciesId' });
+      KPI.hasMany(models.Hardcompetencies, { foreignKey: 'hardcompetenciesId' });
     }
   }
-  Department.init({
+  KPI.init({
     name: DataTypes.STRING,
-    isActive: {
-      type: DataTypes.BOOLEAN,
-      allowNull: false,
-      defaultValue: true,
-    },
-    isDelete: {
-      type: DataTypes.BOOLEAN,
-      allowNull: false,
-      defaultValue: false,
-    }
+    isActive: DataTypes.BOOLEAN,
+    isDelete: DataTypes.BOOLEAN
   }, {
     sequelize,
-    modelName: 'Department',
+    modelName: 'KPI',
   });
-  return Department;
+  return KPI;
 };
