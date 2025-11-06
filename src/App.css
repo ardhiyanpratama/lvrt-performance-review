@@ -1,42 +1,60 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
-}
+@import 'https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600;700&display=swap';
+@import "tailwindcss";
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
+@layer base {
+    :root {
+        --background: 0 0% 98%;
+        --foreground: 0 0% 5%;
+        --card: 0 0% 100%;
+        --card-foreground: 0 0% 5%;
+        --popover: 0 0% 100%;
+        --popover-foreground: 0 0% 5%;
+        --primary: 0 0% 5%;
+        --primary-foreground: 0 0% 98%;
+        --secondary: 0 0% 95%;
+        --secondary-foreground: 0 0% 5%;
+        --muted: 0 0% 95%;
+        --muted-foreground: 0 0% 40%;
+        --accent: 0 0% 95%;
+        --accent-foreground: 0 0% 5%;
+        --destructive: 0 84.2% 60.2%;
+        --destructive-foreground: 0 0% 98%;
+        --border: 0 0% 85%;
+        --input: 0 0% 95%;
+        --ring: 0 0% 5%;
+        --radius: 0.5rem;
+    }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
+    .dark {
+        --background: 0 0% 2%;
+        --foreground: 0 0% 98%;
+        --card: 0 0% 5%;
+        --card-foreground: 0 0% 98%;
+        --popover: 0 0% 5%;
+        --popover-foreground: 0 0% 98%;
+        --primary: 0 0% 98%;
+        --primary-foreground: 0 0% 2%;
+        --secondary: 0 0% 10%;
+        --secondary-foreground: 0 0% 98%;
+        --muted: 0 0% 10%;
+        --muted-foreground: 0 0% 65%;
+        --accent: 0 0% 10%;
+        --accent-foreground: 0 0% 98%;
+        --destructive: 0 62.8% 30.6%;
+        --destructive-foreground: 0 0% 98%;
+        --border: 0 0% 15%;
+        --input: 0 0% 10%;
+        --ring: 0 0% 90%;
+    }
 
-.card {
-  padding: 2em;
-}
+    * {
+        border-color: hsl(var(--border));
+    }
 
-.read-the-docs {
-  color: #888;
+    body {
+        background-color: hsl(var(--background));
+        color: hsl(var(--foreground));
+        font-family: 'Raleway', sans-serif;
+    }
 }
