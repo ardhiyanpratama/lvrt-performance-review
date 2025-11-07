@@ -3,7 +3,7 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class Department extends Model {
+  class Questionnaire extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -11,16 +11,30 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Department.hasMany(models.Employee, { foreignKey: 'departmentId' });
     }
   }
-  Department.init({
+  Questionnaire.init({
     id: {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4, // Generates a UUID v4 by default
-      primaryKey: true,
+        primaryKey: true,
+        allowNull: false,
     },
-    name: DataTypes.STRING,
+    titleId: {
+        type: DataTypes.UUID,
+        defaultValue: DataTypes.UUIDV4, // Generates a UUID v4 by default
+        allowNull: false,
+    },
+    softcompetenciesId: {
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4, // Generates a UUID v4 by default
+      allowNull: false,
+    },
+    hardcompetenciesId: {
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4, // Generates a UUID v4 by default
+      allowNull: false,
+    },
     isActive: {
       type: DataTypes.BOOLEAN,
       allowNull: false,
@@ -33,7 +47,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }, {
     sequelize,
-    modelName: 'Department',
+    modelName: 'Questionnaire',
   });
-  return Department;
+  return Questionnaire;
 };

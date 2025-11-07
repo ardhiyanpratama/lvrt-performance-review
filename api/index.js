@@ -1,23 +1,23 @@
+require('dotenv').config();
 const express = require('express');
 const { sequelize } = require('./models');
+const cors = require('cors');
+const swaggerUi = require('swagger-ui-express');
+const swaggerSpec = require('./config/swagger');
 
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 
+app.use(cors());
 app.use(express.json());
 
-async function initializeDatabase() {
-    try {
-        await sequelize.authenticate();
-        console.log('Database connection has been established successfully.');
-    } catch (error) {
-        console.error('Unable to connect to the database:', error);
-    } finally {
-        await sequelize.close();
-    }
-}
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+app.use('/api', require('./routes/employeeRoutes'));
 
-initializeDatabase();
+sequelize.authenticate()
+    .then(() => console.log('✅ Database connected'))
+    .catch(err => console.error('❌ Database connection failed:', err))
+    .finally(() => { sequelize.close() });
 
 app.get('/', (req, res) => {
     res.send('Hello from Express API!');

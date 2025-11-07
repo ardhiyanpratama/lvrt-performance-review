@@ -11,12 +11,14 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      KPI.hasMany(models.Title, { foreignKey: 'titleId' });
-      KPI.hasMany(models.Softcompetencies, { foreignKey: 'softcompetenciesId' });
-      KPI.hasMany(models.Hardcompetencies, { foreignKey: 'hardcompetenciesId' });
     }
   }
   KPI.init({
+    id: {
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4, // Generates a UUID v4 by default
+      primaryKey: true,
+    },
     name: DataTypes.STRING,
     isActive: DataTypes.BOOLEAN,
     isDelete: DataTypes.BOOLEAN

@@ -3,7 +3,7 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class Department extends Model {
+  class Reviews extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -14,26 +14,39 @@ module.exports = (sequelize, DataTypes) => {
       Department.hasMany(models.Employee, { foreignKey: 'departmentId' });
     }
   }
-  Department.init({
+  Reviews.init({
     id: {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4, // Generates a UUID v4 by default
-      primaryKey: true,
+        primaryKey: true,
+        allowNull: false,
     },
-    name: DataTypes.STRING,
-    isActive: {
-      type: DataTypes.BOOLEAN,
+    reviewerId: {
+        type: DataTypes.UUID,
+        defaultValue: DataTypes.UUIDV4, // Generates a UUID v4 by default
+        allowNull: false,
+    },
+    revieweeId: {
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4, // Generates a UUID v4 by default
+      allowNull: false,
+    },
+    score: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    comments: {
+      type: DataTypes.TEXT,
+      allowNull: true,
+    },
+    reviewedAt: {
+      type: DataTypes.DATE,
       allowNull: false,
       defaultValue: true,
-    },
-    isDelete: {
-      type: DataTypes.BOOLEAN,
-      allowNull: false,
-      defaultValue: false,
     }
   }, {
     sequelize,
-    modelName: 'Department',
+    modelName: 'Reviews',
   });
-  return Department;
+  return Reviews;
 };

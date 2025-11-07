@@ -11,10 +11,15 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Grade.hasMany(models.Level, { foreignKey: 'gradeId' });
+      Grade.hasMany(models.Employee, { foreignKey: 'gradeId' });
     }
   }
   Grade.init({
+    id: {
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4, // Generates a UUID v4 by default
+      primaryKey: true,
+    },
     name: {
       type: DataTypes.STRING,
       allowNull: false,

@@ -12,10 +12,14 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       Level.hasMany(models.Employee, { foreignKey: 'levelId' });
-      Level.hasMany(models.Grade, { foreignKey: 'gradeId' });
     }
   }
   Level.init({
+    id: {
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4, // Generates a UUID v4 by default
+      primaryKey: true,
+    },
     name: {
       type: DataTypes.STRING,
       allowNull: false,

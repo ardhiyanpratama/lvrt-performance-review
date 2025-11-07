@@ -13,6 +13,7 @@ module.exports = (sequelize, DataTypes) => {
       Employee.belongsTo(models.Title, { foreignKey: 'titleId' });
       Employee.belongsTo(models.Level, { foreignKey: 'levelId' });
       Employee.belongsTo(models.Department, { foreignKey: 'departmentId' });
+      Employee.belongsTo(models.Grade, { foreignKey: 'gradeId' });
     }
   }
   Employee.init({
