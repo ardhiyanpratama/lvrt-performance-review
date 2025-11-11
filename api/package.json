@@ -6,6 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js",
+    "dev": "nodemon index.js",
     "init-sequelize": "npx sequelize init",
     "create-db": "node scripts/create-db.js",
     "migrate": "npx sequelize db:migrate",
