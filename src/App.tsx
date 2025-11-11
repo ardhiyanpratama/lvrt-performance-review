@@ -3,6 +3,8 @@
 // import viteLogo from '/vite.svg'
 import '../src/styles/index.css'
 import Login from './pages/Login';
+import Review from './pages/Review';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 function App() {
   // const { user, loading } = useAuth();
@@ -23,7 +25,14 @@ function App() {
   //   return <Login />;
   // }
 
-  return <Login />;
+  return (
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Login />} />
+          <Route path="/review" element={<Review />} />
+        </Routes>
+      </BrowserRouter>
+  );
 }
 
 export default App;

@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const Employee = require('../models/employee');
+const db = require('../models');
+const Employee = db.Employee;
 
 /**
      * @swagger
@@ -50,6 +51,8 @@ router.post('/login', async (req, res) => {
   try {
     const { email } = req.body;
 
+    console.log('Login attempt with email:', email);
+
     if (!email) {
       return res.status(400).json({ success: false, message: 'Email is required.' });
     }
@@ -57,7 +60,11 @@ router.post('/login', async (req, res) => {
     const employee = await Employee.findOne({ where: { email } });
 
     if (employee) {
-      return res.json({ exists: true, message: 'Login successful.' });
+      return res.json({
+        exists: true,
+        message: 'Login successful.',
+        data: { id: employee.id, email: employee.email, name: employee.name, departement: employee.departmentId }
+      });
     }
 
     res.json({ exists: false, message: 'Login failed. User not found.' });

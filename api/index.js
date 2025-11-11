@@ -17,7 +17,6 @@ app.use('/api', require('./routes/employeeRoutes'));
 sequelize.authenticate()
     .then(() => console.log('✅ Database connected'))
     .catch(err => console.error('❌ Database connection failed:', err))
-    .finally(() => { sequelize.close() });
 
 app.get('/', (req, res) => {
     res.send('Hello from Express API!');
