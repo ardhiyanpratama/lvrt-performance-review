@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const Department = require('../models/departement');
+const db = require('../models');
+const Department = db.Department;
 
 /**
      * @swagger
@@ -46,21 +47,26 @@ const Department = require('../models/departement');
  *       500:
  *         description: Server error
  */
-router.get('/departement', async (req, res) => {
+router.get('/department', async (req, res) => {
   try {
 
+    const { id } = req.query;
+
+    const where = {};
+
+    if(id){
+      where.id = id;
+    }
+
       const result = await Department.findAll({
-          where: {
-              isActive: true,
-              isDelete:false
-          }
+          where
       });
 
     if (result.length > 0) {
       return res.json({ exists: true, message: 'Success.', data: result });
     }
 
-    res.json({ exists: false, message: 'Failed. Department not found.' });
+    res.json({ exists: false, message: 'Failed. department not found.' });
   } catch (error) {
     console.error('Error get department:', error);
     res.status(500).json({ success: false, message: 'Server error.' });

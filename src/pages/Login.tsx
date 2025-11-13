@@ -20,7 +20,7 @@ const Login: React.FC = () => {
           setTimeout(() => {
             setLoading(false);
             navigate('/review', { state: { User: res.data } });
-          }, 1000);
+          }, 5000);
         }
       } catch (error) {
         console.error("Login failed:", error);
