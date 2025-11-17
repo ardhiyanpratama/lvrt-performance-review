@@ -1,9 +1,11 @@
 // import { useState } from 'react'
 // import reactLogo from './assets/react.svg'
 // import viteLogo from '/vite.svg'
+import { lazy } from 'react';
 import '../src/styles/index.css'
-import Login from './pages/Login';
-import Review from './pages/Review';
+const Login = lazy(() => import ('./pages/Login'));
+const Review = lazy(() => import('./pages/Review'));
+const Task = lazy(() => import('./pages/Task'));
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 function App() {
@@ -30,6 +32,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Login />} />
           <Route path="/review" element={<Review />} />
+          <Route path="/task" element={<Task />} />
         </Routes>
       </BrowserRouter>
   );

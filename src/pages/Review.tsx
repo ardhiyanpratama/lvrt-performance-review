@@ -10,6 +10,10 @@ interface Question {
   question: string;
 }
 
+interface RevieweeProps { 
+  id: string;
+}
+
 const Review: React.FC = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [departments, setDepartments] = useState<Interface.Department[]>([]);
@@ -24,11 +28,19 @@ const Review: React.FC = () => {
   const user = location.state?.User;
 
   const handleNext = () => {
-    if (currentStep < questions.length - 1) {
-      setCurrentStep(currentStep + 1);
-    } else {
-      console.log("Submit answers:", answers);
+    if (selected === "") {
+      alert("Please select a reviewee before proceeding.");
+      return;
     }
+
+    const selectedReviewee: RevieweeProps = { id: selected };
+
+    navigate('/task',{ state: { Reviewee: selectedReviewee } }); // Placeholder navigation
+    // if (currentStep < questions.length - 1) {
+    //   setCurrentStep(currentStep + 1);
+    // } else {
+    //   console.log("Submit answers:", answers);
+    // }
   };
 
   const handleAnswerChange = (score: number) => {
@@ -116,7 +128,7 @@ const Review: React.FC = () => {
           <span className="mr-2">↩</span> Sign Out
         </button>
 
-        <p className="text-xs text-gray-500 mt-6 text-center">
+        <p className="text-xs text-gray-500 mt-6">
           Leverate Group Asia Performance Review
         </p>
       </div>
@@ -156,7 +168,9 @@ const Review: React.FC = () => {
 
             {/* OK Button */}
             <div className="flex justify-end mt-6">
-              <button className="bg-gray-800 hover:bg-gray-700 px-5 py-2 rounded-md font-semibold flex items-center gap-2">
+                <button
+                  onClick={handleNext}
+                  className="bg-gray-800 hover:bg-gray-700 px-5 py-2 rounded-md font-semibold flex items-center gap-2">
                 Next <span>→</span>
               </button>
             </div>

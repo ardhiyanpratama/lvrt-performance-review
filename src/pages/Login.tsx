@@ -17,10 +17,8 @@ const Login: React.FC = () => {
             setMessage('Please enter your email.');
         } else {
           const res = await api.post('/login', { email });
-          setTimeout(() => {
-            setLoading(false);
-            navigate('/review', { state: { User: res.data } });
-          }, 5000);
+          setLoading(false);
+          navigate('/review', { state: { User: res.data } });
         }
       } catch (error) {
         console.error("Login failed:", error);
