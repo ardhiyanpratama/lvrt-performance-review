@@ -77,17 +77,21 @@ router.post('/login', async (req, res) => {
 //GET EMPLOYEE
 router.get('/employee', async (req, res) => {
   try {
-    const { email } = req.query;
 
-    if (!email) {
-      return res.status(400).json({ success: false, message: 'Email is required.' });
+    const { email, id } = req.query;
+
+    const where = {};
+
+    if(id){
+      where.id = id;
+    }
+
+    if(email){
+      where.email = email;
     }
 
     const employee = await Employee.findOne({
-      where:
-      {
-        email: email
-      }
+      where: where
     });
 
     if (employee) {
@@ -102,18 +106,18 @@ router.get('/employee', async (req, res) => {
 });
 
 //GET EMPLOYEE BY DEPARTMENT
-router.get('/employee', async (req, res) => {
+router.get('/employee-by-dept', async (req, res) => {
   try {
-    const { departementId } = req.query;
+    const { departmentId } = req.query;
 
-    if (!departementId) {
+    if (!departmentId) {
       return res.status(400).json({ success: false, message: 'Department ID is required.' });
     }
 
     const result = await Employee.findAll({
       where:
       {
-        departementId: departementId
+        departmentId
       }
     });
 

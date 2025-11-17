@@ -11,11 +11,15 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Softcompetencies.belongsTo(models.KPI, { foreignKey: 'softcompetenciesId' });
     }
   }
   Softcompetencies.init({
-    competencies: DataTypes.TEXT,
+    id: {
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4, // Generates a UUID v4 by default
+      primaryKey: true,
+    },
+    name: DataTypes.TEXT,
     isActive: {
       type: DataTypes.BOOLEAN,
       allowNull: false,
