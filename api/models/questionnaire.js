@@ -11,6 +11,10 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Questionnaire.belongsTo(models.Title, { foreignKey: 'titleId' });
+      Questionnaire.belongsTo(models.Softcompetencies, { foreignKey: 'softcompetenciesId' });
+      Questionnaire.belongsTo(models.Hardcompetencies, { foreignKey: 'hardcompetenciesId' });
+      Questionnaire.hasMany(models.Reviews, { foreignKey: 'questionId' });
     }
   }
   Questionnaire.init({
@@ -22,17 +26,14 @@ module.exports = (sequelize, DataTypes) => {
     },
     titleId: {
         type: DataTypes.UUID,
-        defaultValue: DataTypes.UUIDV4, // Generates a UUID v4 by default
         allowNull: false,
     },
     softcompetenciesId: {
       type: DataTypes.UUID,
-      defaultValue: DataTypes.UUIDV4, // Generates a UUID v4 by default
       allowNull: false,
     },
     hardcompetenciesId: {
       type: DataTypes.UUID,
-      defaultValue: DataTypes.UUIDV4, // Generates a UUID v4 by default
       allowNull: false,
     },
     isActive: {

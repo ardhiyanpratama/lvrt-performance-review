@@ -22,6 +22,22 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: DataTypes.UUIDV4, // Generates a UUID v4 by default
       primaryKey: true,
     },
+    departmentId: {
+      type: DataTypes.UUID,
+      allowNull: false,
+    },
+    levelId: {
+      type: DataTypes.UUID,
+      allowNull: false,
+    },
+    titleId: {
+      type: DataTypes.UUID,
+      allowNull: false,
+    },
+    gradeId: {
+      type: DataTypes.UUID,
+      allowNull: false,
+    },
     nik: {
       type: DataTypes.STRING,
       allowNull: false,

@@ -11,6 +11,9 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Softcompetencies.belongsTo(models.Title, { foreignKey: 'titleId' });
+      Softcompetencies.belongsTo(models.Department, { foreignKey: 'departmentId' });
+      Softcompetencies.hasMany(models.Questionnaire, { foreignKey: 'softcompetenciesId' });
     }
   }
   Softcompetencies.init({
@@ -18,6 +21,14 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4, // Generates a UUID v4 by default
       primaryKey: true,
+    },
+    departmentId: {
+      type: DataTypes.UUID,
+      allowNull: false,
+    },
+    titleId: {
+      type: DataTypes.UUID,
+      allowNull: false,
     },
     name: DataTypes.TEXT,
     isActive: {

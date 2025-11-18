@@ -11,6 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Reviews.belongsTo(models.Questionnaire, { foreignKey: 'questionId' });
     }
   }
   Reviews.init({
@@ -20,29 +21,30 @@ module.exports = (sequelize, DataTypes) => {
         primaryKey: true,
         allowNull: false,
     },
+    questionId: {
+      type: DataTypes.UUID,
+      allowNull: false,
+    },
     reviewerId: {
         type: DataTypes.UUID,
-        defaultValue: DataTypes.UUIDV4, // Generates a UUID v4 by default
         allowNull: false,
+    },
+    reviewerName: {
+      type: DataTypes.TEXT,
+      allowNull: true,
     },
     revieweeId: {
       type: DataTypes.UUID,
-      defaultValue: DataTypes.UUIDV4, // Generates a UUID v4 by default
       allowNull: false,
+    },
+    revieweeName: {
+      type: DataTypes.TEXT,
+      allowNull: true,
     },
     score: {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    comments: {
-      type: DataTypes.TEXT,
-      allowNull: true,
-    },
-    reviewedAt: {
-      type: DataTypes.DATE,
-      allowNull: false,
-      defaultValue: true,
-    }
   }, {
     sequelize,
     modelName: 'Reviews',
