@@ -3,7 +3,6 @@ import { ChevronDown, LogOut } from 'lucide-react';
 import Button from '../components/ui/Button';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import api from '../services/api';
-import Interface from '../interface';
 
 interface Question {
   id: string;
@@ -14,10 +13,21 @@ interface RevieweeProps {
   id: string;
 }
 
+interface interfaceDepartment {
+    name: string;
+}
+
+interface interfaceEmployee {
+    id: string;
+    name: string;
+    nik: string;
+    email: string;
+}
+
 const Review: React.FC = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [departments, setDepartments] = useState<Interface.Department[]>([]);
-  const [employees, setEmployees] = useState<Interface.Employee[]>([]);
+  const [departments, setDepartments] = useState<interfaceDepartment[]>([]);
+  const [employees, setEmployees] = useState<interfaceEmployee[]>([]);
   const [selected, setSelected] = useState("");
   const [currentStep, setCurrentStep] = useState(0);
   const [questions, setQuestions] = useState<Question[]>([]);
@@ -55,7 +65,7 @@ const Review: React.FC = () => {
       const fetchDepartments = async () => {
         try {
           setLoading(true);
-          const response = await api.get<Interface.Department[]>(`/department?id=${user.data.departement}`);
+          const response = await api.get<interfaceDepartment[]>(`/department?id=${user.data.departement}`);
           setDepartments(response.data.data);
           console.log('Department:', response.data.data);
         } catch (error) {
@@ -68,7 +78,7 @@ const Review: React.FC = () => {
       const fetchEmployeeByDeptId = async () => {
         try {
           setLoading(true);
-          const response = await api.get<Interface.Employee[]>(`/employee-by-dept?departmentId=${user.data.departement}`);
+          const response = await api.get<interfaceEmployee[]>(`/employee-by-dept?departmentId=${user.data.departement}`);
           setEmployees(response.data.data);
           console.log('Employees:', response.data.data);
         } catch (error) {

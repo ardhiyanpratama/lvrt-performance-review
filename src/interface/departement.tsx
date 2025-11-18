@@ -1,3 +1,3 @@
-export interface Department {
+export interface interfaceDepartment {
     name: string;
 }

@@ -1,7 +1,6 @@
-import React, { use, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import api from '../services/api';
-import Interface from '../interface';
 
 interface Question {
     id: string;
@@ -17,13 +16,17 @@ interface RevieweeProps {
   titleId?: string;
 }
 
+interface interfaceDepartment {
+    name: string;
+}
+
 const Task: React.FC = () => {
 
     const [revieweeDetails, setRevieweeDetails] = useState<RevieweeProps>({ id: '', name: '', department: '', email: '', titleId: '' });
-    const [departments, setDepartments] = useState<Interface.Department[]>([]);
+    const [departments, setDepartments] = useState<interfaceDepartment[]>([]);
     const [currentStep, setCurrentStep] = useState(0);
     const [questions, setQuestions] = useState<Question[]>([]);
-    const [answers, setAnswers] = useState<{ [key: number]: number }>({});
+    const [answers, setAnswers] = useState<{ [key: string]: number }>({});
     const [loading, setLoading] = useState(true);
     const location = useLocation();
     const navigate = useNavigate();
@@ -51,7 +54,7 @@ const Task: React.FC = () => {
 
         const fetchDepartments = async (departmentId: string) => {
             try {
-                const result = await api.get<Interface.Department[]>(`/department?id=${departmentId}`);
+                const result = await api.get<interfaceDepartment[]>(`/department?id=${departmentId}`);
                 setDepartments(result.data.data);
                 console.log('Department:', result.data.data);
             } catch (error) {
@@ -61,8 +64,8 @@ const Task: React.FC = () => {
       
         const fetchHardCompetencies = async (departmentId: string, titleId: string) => {
           try {
-            const result = await api.get<Interface.Question[]>(`/hardcompetencies?titleId=${titleId}&departmentId=${departmentId}`);
-            const additem = await result.data.data.map((item) => ({ ...item, type: 'hardcompetencies' }));
+            const result = await api.get<Question[]>(`/hardcompetencies?titleId=${titleId}&departmentId=${departmentId}`);
+            const additem = await result.data.data.map((item: Question) => ({ ...item, type: 'hardcompetencies' }));
             setQuestions(additem);
             console.log('Hard Competencies:', questions);
           } catch (error) {
@@ -72,8 +75,8 @@ const Task: React.FC = () => {
 
       const fetchSoftCompetencies = async (departmentId: string, titleId: string) => {
           try {
-            const result = await api.get<Interface.Question[]>(`/softcompetencies?titleId=${titleId}&departmentId=${departmentId}`);
-            const additem = await result.data.data.map((item) => ({ ...item, type: 'softcompetencies' }));
+            const result = await api.get<Question[]>(`/softcompetencies?titleId=${titleId}&departmentId=${departmentId}`);
+            const additem = await result.data.data.map((item: Question) => ({ ...item, type: 'softcompetencies' }));
             setQuestions((prevQuestions) => [...prevQuestions, ...additem]);
             console.log('Soft Competencies:', questions);
           } catch (error) {
