@@ -4,6 +4,7 @@ const { sequelize } = require('./models');
 const cors = require('cors');
 const swaggerUi = require('swagger-ui-express');
 const swaggerSpec = require('./config/swagger');
+const { initDatabase } = require('./scripts/dbSyncAndSeed');
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -17,15 +18,30 @@ app.use('/api', require('./routes/departementRoutes'));
 app.use('/api', require('./routes/hardcompetenciesRoutes'));
 app.use('/api', require('./routes/softcompetenciesRoutes'));
 
-sequelize.authenticate()
-    .then(() => console.log('✅ Database connected'))
-    .catch(err => console.error('❌ Database connection failed:', err))
+// sequelize.authenticate()
+//     .then(() => console.log('✅ Database connected'))
+//     .catch(err => console.error('❌ Database connection failed:', err))
 
-app.get('/', (req, res) => {
-    res.send('Hello from Express API!');
-});
+// sequelize.sync()
+//     .then(() => console.log('✅ Database synchronized'))
+//     .catch(err => console.error('❌ Database synchronization failed:', err))
 
-app.listen(port, () => {
-    console.log(`Server running at http://localhost:${port}`);
-});
+(async () => {
+    try {
+        await initDatabase();
+
+        app.get('/', (req, res) => {
+            res.send('Hello from Express API!');
+        });
+
+        app.listen(port, () => {
+            console.log(`Server running at http://localhost:${port}`);
+        });
+    } catch (err) {
+        console.error('❌ Failed to initialize database:', err);
+        process.exit(1);
+    }
+})();
+
+
 

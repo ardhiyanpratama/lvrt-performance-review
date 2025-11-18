@@ -1,4 +1,5 @@
 'use strict';
+const { title } = require('process');
 const {
   Model
 } = require('sequelize');
@@ -13,6 +14,9 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       Title.hasMany(models.Employee, { foreignKey: 'titleId' });
       Title.belongsTo(models.KPI, { foreignKey: 'titleId' });
+      Title.hasMany(models.Hardcompetencies, { foreignKey: 'titleId' });
+      Title.hasMany(models.Softcompetencies, { foreignKey: 'titleId' });
+      Title.hasMany(models.Questionnaire, { foreignKey: 'titleId' });
     }
   }
   Title.init({

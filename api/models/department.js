@@ -12,6 +12,8 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       Department.hasMany(models.Employee, { foreignKey: 'departmentId' });
+      Department.hasMany(models.Hardcompetencies, { foreignKey: 'departmentId' });
+      Department.hasMany(models.Softcompetencies, { foreignKey: 'departmentId' });
     }
   }
   Department.init({
