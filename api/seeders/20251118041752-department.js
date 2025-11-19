@@ -13,8 +13,6 @@ module.exports = {
      *   isBetaMember: false
      * }], {});
     */
-    console.log('>>> RUNNING DEMO USER SEEDER');
-
     const [rows] = await queryInterface.sequelize.query(
       'SELECT COUNT(*) AS count FROM departments;'
     );

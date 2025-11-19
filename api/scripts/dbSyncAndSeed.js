@@ -3,19 +3,19 @@ const path = require('path');
 const { Umzug, SequelizeStorage } = require('umzug');
 const { sequelize } = require('../models');
 
-function createMigrationUmzug() {
-  return new Umzug({
-    migrations: {
-      glob: path.join(__dirname, '../migrations/*.js'),
-    },
-    context: sequelize.getQueryInterface(),
-    storage: new SequelizeStorage({
-      sequelize,
-      modelName: 'SequelizeMeta', // default table for migrations
-    }),
-    logger: console,
-  });
-}
+// function createMigrationUmzug() {
+//   return new Umzug({
+//     migrations: {
+//       glob: path.join(__dirname, '../migrations/*.js'),
+//     },
+//     context: sequelize.getQueryInterface(),
+//     storage: new SequelizeStorage({
+//       sequelize,
+//       modelName: 'SequelizeMeta',
+//     }),
+//     logger: console,
+//   });
+// }
 
 function createSeederUmzug() {
   return new Umzug({
@@ -25,16 +25,16 @@ function createSeederUmzug() {
     context: sequelize.getQueryInterface(),
     storage: new SequelizeStorage({
       sequelize,
-      modelName: 'SequelizeData', // table for seeders runs, name is up to you
+      modelName: 'SequelizeData',
     }),
     logger: console,
   });
 }
 
-async function runMigrations() {
-  const migrator = createMigrationUmzug();
-  await migrator.up();
-}
+// async function runMigrations() {
+//   const migrator = createMigrationUmzug();
+//   await migrator.up();
+// }
 
 async function runSeeders() {
     const seeder = createSeederUmzug();
@@ -51,8 +51,7 @@ async function initDatabase() {
     console.log('Database connected.');
 
     console.log('Running migrations...');
-      // await runMigrations();
-      //await sequelize.sync({ alter: true }); // Use sync with alter to update tables
+    await sequelize.sync({ alter: true }); // Use sync with alter to update tables
     console.log('Migrations finished.');
 
     console.log('Running seeders...');
