@@ -14,7 +14,7 @@ module.exports = {
      * }], {});
     */
     const [rows] = await queryInterface.sequelize.query(
-      'SELECT COUNT(*) AS count FROM titles;'
+      'SELECT COUNT(*) AS count FROM Titles;'
     );
 
     const count = rows[0]?.count || rows.count || 0;
@@ -75,5 +75,6 @@ module.exports = {
      * Example:
      * await queryInterface.bulkDelete('People', null, {});
      */
+    await queryInterface.bulkDelete('Titles', null, {});
   }
 };

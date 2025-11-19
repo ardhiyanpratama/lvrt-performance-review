@@ -14,7 +14,7 @@ module.exports = {
      * }], {});
     */
     const [rows] = await queryInterface.sequelize.query(
-      'SELECT COUNT(*) AS count FROM departments;'
+      'SELECT COUNT(*) AS count FROM Departments;'
     );
 
     const count = rows[0]?.count || rows.count || 0;
